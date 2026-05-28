@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Fiscal estimates, policy analyses, investigations, and state-level data from the Office for Fiscal and Regulatory Analysis — powered by America First Policy Institute."/>
+<title>OFRA — Research &amp; Analysis</title>
+<!-- Favicon: red square with OFRA initial -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='3' fill='%23C0182A'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='16' fill='white'>O</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#0D1B2E;--navy-mid:#162236;--navy-light:#1E3A5F;
+  --red:#C0182A;--red-dark:#9A1221;--red-pale:#FDF5F6;
+  --white:#FFFFFF;--off-white:#F8F7F4;--cream:#F2F0EC;
+  --rule:#DDD9D0;--rule-light:#EDEAE4;
+  --text:#1C1C1A;--muted:#52524E;--dim:#8A8780;
+  --est-bg:#E6EEF8;--est-tx:#0C3568;
+  --ana-bg:#E2F2EA;--ana-tx:#0A4228;
+  --inv-bg:#FDF0D2;--inv-tx:#5C3600;
+  --brf-bg:#F5E8EF;--brf-tx:#6B1530;
+  --wftc-bg:#EEECEA;--wftc-tx:#3A3830;
+  --sim-bg:#EEE8F5;--sim-tx:#3D1A6E;
+  --sim-bg:#EEE8F5;--sim-tx:#3D1A6E;
+  --sh-sm:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.05);
+  --sh-md:0 4px 12px rgba(0,0,0,.10),0 2px 4px rgba(0,0,0,.06);
+  --r:4px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;color:var(--text);background:var(--off-white);min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input{font-family:inherit}
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.site-nav{background:var(--navy);border-bottom:3px solid var(--red);position:sticky;top:0;z-index:200}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:stretch;justify-content:space-between;gap:1rem}
+.nav-brand{display:flex;align-items:center;gap:12px;padding:10px 0;cursor:pointer}
+.nav-logo{width:36px;height:36px;border-radius:2px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo span{font-family:'Libre Baskerville',serif;font-size:12px;font-weight:700;color:var(--white);letter-spacing:.04em}
+.nav-titles .acronym{font-family:'Libre Baskerville',serif;font-size:17px;font-weight:700;color:var(--white);letter-spacing:.04em;display:block;line-height:1.1}
+.nav-titles .full{font-size:10px;font-weight:300;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nav-link{color:rgba(255,255,255,.55);font-size:12.5px;padding:6px 12px;border-radius:3px;transition:all .15s;cursor:pointer;white-space:nowrap}
+.nav-link:hover,.nav-link.act{color:var(--white);background:rgba(255,255,255,.09)}
+
+/* ── VIEWS ────────────────────────────────────────────────── */
+.view{display:none}
+.view.active{display:block;animation:fadeUp .22s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO / ABOUT STRIP ───────────────────────────────────── */
+.hero-strip{background:var(--navy-mid);border-bottom:1px solid rgba(255,255,255,.06)}
+.hero-inner{max-width:1200px;margin:0 auto;padding:2.5rem 2rem 2rem;display:grid;grid-template-columns:1fr 300px;gap:3rem;align-items:center}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem}
+.hero-title{font-family:'Libre Baskerville',serif;font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--white);line-height:1.2;letter-spacing:-.3px;margin-bottom:.75rem}
+.hero-about{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.7;max-width:480px}
+.hero-about a{color:rgba(255,255,255,.7);text-decoration:underline;text-underline-offset:2px}
+.hero-about a:hover{color:var(--white)}
+.hero-featured{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:1.25rem;cursor:pointer;transition:background .15s}
+.hero-featured:hover{background:rgba(255,255,255,.07)}
+.hero-featured:hover .hf-title{color:rgba(255,255,255,.85)}
+.hf-eyebrow{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
+.hf-badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:.5rem}
+.hf-title{font-family:'Libre Baskerville',serif;font-size:15px;font-weight:700;color:var(--white);line-height:1.35;margin-bottom:.4rem;transition:color .15s}
+.hf-meta{font-size:11px;color:rgba(255,255,255,.3)}
+.hf-cta{font-size:11px;font-weight:500;color:var(--red);margin-top:.6rem;display:inline-block}
+
+/* ── ACTIVE FILTER BAR ────────────────────────────────────── */
+.afbar{background:rgba(192,24,42,.07);border-bottom:1px solid rgba(192,24,42,.14);padding:0;max-height:0;overflow:hidden;transition:max-height .2s,padding .2s}
+.afbar.on{max-height:56px;padding:7px 2rem}
+.afb-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.afb-lbl{font-size:11px;color:var(--red);font-weight:600}
+.afb-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--red);background:rgba(192,24,42,.1);border:1px solid rgba(192,24,42,.2);padding:2px 8px;border-radius:99px;cursor:pointer}
+.afb-chip:hover{background:rgba(192,24,42,.18)}
+.afb-clr{font-size:11px;color:var(--muted);cursor:pointer;margin-left:auto;padding:2px 8px;border-radius:99px;border:1px solid var(--rule);background:var(--white)}
+.afb-clr:hover{color:var(--text)}
+
+/* ── CATALOG LAYOUT ───────────────────────────────────────── */
+.catalog-wrap{max-width:1200px;margin:0 auto;padding:2rem 2rem 4rem;display:grid;grid-template-columns:210px 1fr;gap:2.5rem;align-items:start}
+
+/* ── SIDEBAR ──────────────────────────────────────────────── */
+.sidebar{position:sticky;top:68px}
+.sb-search-wrap{position:relative;margin-bottom:1.5rem}
+.sb-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--dim);pointer-events:none}
+.sb-search{width:100%;border:1px solid var(--rule);border-radius:var(--r);padding:8px 12px 8px 32px;font-size:13px;color:var(--text);background:var(--white);transition:border-color .15s,box-shadow .15s}
+.sb-search::placeholder{color:var(--dim)}
+.sb-search:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(13,27,46,.08)}
+.sb-section{margin-bottom:1.75rem}
+.sb-head{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule)}
+.sb-item{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:var(--r);font-size:13px;color:var(--muted);cursor:pointer;transition:all .12s;margin-bottom:1px}
+.sb-item:hover{background:var(--cream);color:var(--text)}
+.sb-item.act{background:var(--navy);color:var(--white);font-weight:500}
+.sb-ct{font-size:10px;opacity:.5;background:rgba(0,0,0,.07);padding:1px 5px;border-radius:99px;min-width:22px;text-align:center;flex-shrink:0}
+.sb-item.act .sb-ct{background:rgba(255,255,255,.15);opacity:1}
+.sb-wftc-toggle{display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:var(--r);font-size:12px;color:var(--muted);cursor:pointer;border:1px solid var(--rule);background:var(--cream);margin-top:.5rem}
+.sb-wftc-toggle:hover{border-color:#aaa;color:var(--text)}
+
+/* ── RESULTS ──────────────────────────────────────────────── */
+.rbar{display:flex;align-items:center;justify-content:space-between;padding-bottom:.75rem;border-bottom:2px solid var(--navy);margin-bottom:1.25rem}
+.rct{font-size:13px;color:var(--muted)}
+.yr-block{margin-bottom:2.5rem}
+.yr-div{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem}
+.yr-num{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:700;color:var(--navy);letter-spacing:-.5px;flex-shrink:0}
+.yr-line{flex:1;height:1px;background:var(--rule)}
+.yr-ct{font-size:11px;color:var(--dim);white-space:nowrap}
+
+/* ── PUBLICATION CARDS ────────────────────────────────────── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:1rem}
+
+/* Standard card */
+.pub-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--r);padding:1.1rem 1.2rem;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s,border-color .15s,transform .15s;box-shadow:var(--sh-sm);border-top:3px solid transparent}
+.pub-card:hover{box-shadow:var(--sh-md);border-color:#c0bdb8;transform:translateY(-2px)}
+.pc-Estimate{border-top-color:var(--est-tx)}
+.pc-Analysis{border-top-color:var(--ana-tx)}
+.pc-Investigation{border-top-color:var(--inv-tx)}
+.pc-Brief{border-top-color:var(--brf-tx)}
+.pc-WFTC{border-top-color:#B0ADA7}
+.pc-Simulation{border-top-color:#6B3FA0}
+
+/* Featured/large card for Investigations and Analyses */
+.pub-card.card-lg{grid-column:1/-1;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;padding:1.4rem 1.5rem}
+.pub-card.card-lg .ct{font-size:16px}
+.pub-card.card-lg .cd{-webkit-line-clamp:4}
+.pub-card.card-lg .card-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;padding-top:2px}
+
+/* Badge */
+.cb{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-bottom:.55rem;align-self:flex-start;cursor:pointer;transition:opacity .12s}
+.cb:hover{opacity:.75}
+.cb-Estimate{background:var(--est-bg);color:var(--est-tx)}
+.cb-Analysis{background:var(--ana-bg);color:var(--ana-tx)}
+.cb-Investigation{background:var(--inv-bg);color:var(--inv-tx)}
+.cb-Brief{background:var(--brf-bg);color:var(--brf-tx)}
+.cb-WFTC{background:var(--wftc-bg);color:var(--wftc-tx)}
+.cb-Simulation{background:var(--sim-bg);color:var(--sim-tx)}
+
+.ct{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;color:var(--navy);line-height:1.4;margin-bottom:.35rem;flex:1;transition:color .12s}
+.pub-card:hover .ct{color:var(--red)}
+.cd{font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:.6rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.byline{font-size:11px;color:var(--dim);margin-bottom:.5rem;font-style:italic}
+
+.cf{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.7rem;border-top:1px solid var(--rule-light)}
+.cm{font-size:11px;color:var(--dim)}
+.cdl{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--navy);padding:3px 8px;border:1px solid var(--rule);border-radius:2px;background:var(--off-white);transition:all .12s;text-decoration:none}
+.pub-card:hover .cdl{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+/* WFTC compact list */
+.wftc-section{margin-bottom:2rem}
+.wftc-toggle-bar{display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--cream);border:1px solid var(--rule);border-radius:var(--r);cursor:pointer;margin-bottom:1rem}
+.wftc-toggle-bar:hover{border-color:#aaa}
+.wftc-toggle-title{font-size:13px;font-weight:600;color:var(--navy)}
+.wftc-toggle-sub{font-size:11px;color:var(--dim)}
+.wftc-toggle-icon{font-size:18px;color:var(--dim);transition:transform .2s}
+.wftc-toggle-icon.open{transform:rotate(180deg)}
+.wftc-list{display:none;flex-direction:column;gap:1px;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:1rem}
+.wftc-list.open{display:flex}
+.wftc-row{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--white);font-size:13px;color:var(--navy);cursor:pointer;border-bottom:1px solid var(--rule-light);transition:background .1s}
+.wftc-row:last-child{border-bottom:none}
+.wftc-row:hover{background:var(--cream)}
+.wftc-row-meta{font-size:11px;color:var(--dim);display:flex;align-items:center;gap:8px}
+
+.more-row{text-align:center;padding:6px 0 4px}
+.more-btn{font-size:12px;font-weight:500;color:var(--red);padding:7px 18px;border:1px solid rgba(192,24,42,.25);border-radius:var(--r);background:var(--red-pale);transition:all .12s;cursor:pointer}
+.more-btn:hover{background:var(--red);color:var(--white);border-color:var(--red)}
+.no-res{text-align:center;padding:4rem 0;color:var(--dim);font-size:14px}
+
+/* ── DETAIL PAGE ──────────────────────────────────────────── */
+.detail-wrap{max-width:1200px;margin:0 auto;padding:2.5rem 2rem 5rem;display:grid;grid-template-columns:1fr 280px;gap:3rem;align-items:start}
+.det-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:1.5rem;cursor:pointer;transition:color .12s}
+.det-back:hover{color:var(--navy)}
+.det-title{font-family:'Libre Baskerville',serif;font-size:clamp(22px,3.5vw,34px);font-weight:700;color:var(--navy);line-height:1.2;letter-spacing:-.4px;margin-bottom:.6rem}
+.det-byline{font-size:12px;color:var(--dim);font-style:italic;margin-bottom:1rem}
+.det-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:2px solid var(--navy)}
+.det-mi{font-size:12px;color:var(--dim)}
+.det-ms{color:var(--rule)}
+.det-abstract{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:2rem;font-style:italic;border-left:3px solid var(--red);padding-left:1.25rem}
+.pdf-embed-wrap{margin-bottom:2rem}
+.pdf-embed-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between}
+.pdf-embed-label a{font-size:11px;color:var(--red);font-weight:500;letter-spacing:0;text-transform:none}
+.pdf-embed{width:100%;height:700px;border:1px solid var(--rule);border-radius:var(--r);background:var(--cream)}
+.det-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--rule)}
+.det-tag{font-size:11px;color:var(--muted);padding:3px 10px;border:1px solid var(--rule);border-radius:2px;background:var(--off-white);cursor:pointer;transition:all .12s}
+.det-tag:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.det-cta{background:var(--navy);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--sh-md)}
+.det-cta-t{font-family:'Libre Baskerville',serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.det-cta-s{font-size:12px;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:1rem}
+.det-dl{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;background:var(--red);color:var(--white);font-size:13px;font-weight:600;border-radius:var(--r);cursor:pointer;transition:background .15s;border:none;text-decoration:none}
+.det-dl:hover{background:var(--red-dark)}
+.share-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px;background:var(--white);color:var(--navy);font-size:12px;font-weight:600;border-radius:var(--r);cursor:pointer;transition:all .15s;border:1px solid var(--rule);margin-bottom:1.25rem}
+.share-btn:hover{background:var(--cream);border-color:#aaa}
+.share-btn.copied{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.cite-box{background:var(--cream);border:1px solid var(--rule);border-radius:var(--r);padding:1rem;margin-bottom:1.25rem}
+.cite-head{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.5rem}
+.cite-text{font-size:11px;color:var(--muted);line-height:1.6;font-style:italic}
+.rel-head{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid var(--rule)}
+.rel-item{padding:.75rem 0;border-bottom:1px solid var(--rule-light);cursor:pointer}
+.rel-item:last-child{border-bottom:none}
+.rel-item:hover .rel-t{color:var(--red)}
+.rel-t{font-size:13px;font-weight:500;color:var(--navy);line-height:1.4;transition:color .12s;margin-top:3px}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer{background:var(--navy);border-top:3px solid var(--red);padding:3rem 2rem 2rem}
+.foot-inner{max-width:1200px;margin:0 auto}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot-brand{font-family:'Libre Baskerville',serif;font-size:20px;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.foot-tagline{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;max-width:280px;margin-bottom:1rem}
+.foot-afpi{font-size:11px;color:rgba(255,255,255,.35)}
+.foot-afpi a{color:rgba(255,255,255,.55);text-decoration:underline;text-underline-offset:2px}
+.foot-afpi a:hover{color:var(--white)}
+.foot-col-head{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.75rem}
+.foot-link{display:block;font-size:12px;color:rgba(255,255,255,.45);margin-bottom:.4rem;cursor:pointer;transition:color .12s}
+.foot-link:hover{color:var(--white)}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.foot-copy{font-size:11px;color:rgba(255,255,255,.2)}
+.foot-cite-note{font-size:11px;color:rgba(255,255,255,.25);font-style:italic}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+.mobile-filter-bar{display:none;padding:.75rem 1rem;background:var(--white);border-bottom:1px solid var(--rule);gap:6px;overflow-x:auto;scrollbar-width:none}
+.mobile-filter-bar::-webkit-scrollbar{display:none}
+.mfb-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:99px;border:1px solid var(--rule);font-size:12px;font-weight:500;color:var(--muted);background:var(--white);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .12s}
+.mfb-pill:hover{border-color:#aaa;color:var(--text)}
+.mfb-pill.act{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+@media(max-width:900px){
+  .catalog-wrap{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .mobile-filter-bar{display:flex}
+  .detail-wrap{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr;gap:1.5rem}
+  .hero-featured{display:none}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-inner{padding:0 1rem}
+  .catalog-wrap{padding:1.25rem 1rem 3rem}
+  .detail-wrap{padding:1.5rem 1rem 3rem}
+  .hero-strip .hero-inner{padding:1.75rem 1rem 1.5rem}
+  .card-grid{grid-template-columns:1fr}
+  .pub-card.card-lg{grid-template-columns:1fr}
+  .pub-card.card-lg .card-right{flex-direction:row;align-items:center}
+  .nav-links{display:none}
+  .foot-grid{grid-template-columns:1fr}
+}
+
+.wftc-state-box{border:1px solid var(--rule);border-radius:var(--r);font-size:12.5px}
+.wftc-state-header{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;cursor:pointer;background:var(--off-white);border-radius:var(--r);user-select:none}
+.wftc-state-header:hover{background:var(--cream)}
+.wftc-state-arrow{font-size:14px;color:var(--dim);transition:transform .2s}
+.wftc-state-arrow.open{transform:rotate(180deg)}
+.wftc-state-dropdown{border:1px solid var(--rule);border-radius:var(--r);padding:6px 8px;max-height:220px;overflow-y:auto;background:white;margin-top:4px}
+.wftc-state-clear{font-size:11px;color:var(--red);cursor:pointer;padding:2px 4px;margin-bottom:6px;display:inline-block}
+.wftc-state-clear:hover{text-decoration:underline}
+.wftc-state-opt{display:flex;align-items:center;gap:6px;padding:3px 4px;cursor:pointer;border-radius:2px;font-size:12px;color:var(--text)}
+.wftc-state-opt:hover{background:var(--cream)}
+.wftc-state-opt input{cursor:pointer;accent-color:var(--navy)}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="goHome()">
+      <svg height="66" viewBox="0 0 160 66" xmlns="http://www.w3.org/2000/svg" aria-label="OFRA — Office for Fiscal and Regulatory Analysis">
+        <text x="0" y="48" font-family="Georgia, 'Libre Baskerville', 'Times New Roman', serif" font-size="52" font-weight="700" fill="white" letter-spacing="0">OFRA</text>
+        <text x="0" y="62" font-family="Georgia, 'Libre Baskerville', 'Times New Roman', serif" font-size="7" font-weight="400" fill="rgba(255,255,255,0.55)" textLength="160" lengthAdjust="spacingAndGlyphs">OFFICE FOR FISCAL AND REGULATORY ANALYSIS</text>
+      </svg>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="https://americafirstpolicy.com" target="_blank" rel="noopener">AFPI ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HOME VIEW ════════════════════════════════════════════ -->
+<div class="view active" id="view-home">
+
+  <!-- Hero + About -->
+  <div class="hero-strip">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Office for Fiscal &amp; Regulatory Analysis</div>
+        <h1 class="hero-title">Research &amp; Analysis</h1>
+        <p class="hero-about">OFRA produces fiscal estimates, policy investigations, and data products that quantify the economic and budgetary impact of federal and state policy. OFRA is powered by the <a href="https://americafirstpolicy.com" target="_blank" rel="noopener">America First Policy Institute</a>.</p>
+      </div>
+      <div class="hero-featured" id="hero-feat" onclick="openFeatured()">
+        <div class="hf-eyebrow">Latest Publication</div>
+        <div id="hf-badge"></div>
+        <div class="hf-title" id="hf-title">Loading…</div>
+        <div class="hf-meta" id="hf-meta"></div>
+        <div class="hf-cta">Read more →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active filter indicator -->
+  <div class="afbar" id="afbar">
+    <div class="afb-in" id="afb-in"></div>
+  </div>
+
+  <!-- Mobile filter bar -->
+  <div class="mobile-filter-bar" id="mob-filters"></div>
+
+  <!-- Catalog -->
+  <div class="catalog-wrap">
+    <aside class="sidebar">
+      <div class="sb-search-wrap">
+        <svg class="sb-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="sb-search" type="search" id="q" placeholder="Search publications…" oninput="render()" aria-label="Search publications"/>
+      </div>
+      <div class="sb-section">
+        <div class="sb-head">Publication Type</div>
+        <div class="sb-item act" data-f="type" data-v="all" onclick="sf('type','all',this)">All research</div>
+        <div class="sb-item" data-f="type" data-v="Investigation" onclick="sf('type','Investigation',this)">Investigation <span class="sb-ct" id="ct-Investigation">–</span></div>
+        <div class="sb-item" data-f="type" data-v="Analysis" onclick="sf('type','Analysis',this)">Analysis <span class="sb-ct" id="ct-Analysis">–</span></div>
+        <div class="sb-item" data-f="type" data-v="Estimate" onclick="sf('type','Estimate',this)">Estimate <span class="sb-ct" id="ct-Estimate">–</span></div>
+        <div class="sb-item" data-f="type" data-v="Brief" onclick="sf('type','Brief',this)">Brief <span class="sb-ct" id="ct-Brief">–</span></div>
+        <div class="sb-item" data-f="type" data-v="Simulation" onclick="sf('type','Simulation',this)">Simulation <span class="sb-ct" id="ct-Simulation">–</span></div>
+        <div class="sb-item" data-f="type" data-v="WFTC" onclick="sf('type','WFTC',this)">WFTC Data <span class="sb-ct" id="ct-WFTC">–</span></div>
+      </div>
+      <div class="sb-section">
+        <div class="sb-head">Topic</div>
+        <div class="sb-item act" data-f="topic" data-v="all" onclick="sf('topic','all',this)">All topics</div>
+        <div class="sb-item" data-f="topic" data-v="Fiscal Policy" onclick="sf('topic','Fiscal Policy',this)">Fiscal Policy <span class="sb-ct" id="ct-Fiscal Policy">–</span></div>
+        <div class="sb-item" data-f="topic" data-v="Regulatory Reform" onclick="sf('topic','Regulatory Reform',this)">Regulatory Reform <span class="sb-ct" id="ct-Regulatory Reform">–</span></div>
+        <div class="sb-item" data-f="topic" data-v="Tax Policy" onclick="sf('topic','Tax Policy',this)">Tax Policy <span class="sb-ct" id="ct-Tax Policy">–</span></div>
+        <div class="sb-item" data-f="topic" data-v="Immigration" onclick="sf('topic','Immigration',this)">Immigration <span class="sb-ct" id="ct-Immigration">–</span></div>
+        <div class="sb-item" data-f="topic" data-v="Housing" onclick="sf('topic','Housing',this)">Housing <span class="sb-ct" id="ct-Housing">–</span></div>
+        <div class="sb-item" data-f="topic" data-v="Public Safety" onclick="sf('topic','Public Safety',this)">Public Safety <span class="sb-ct" id="ct-Public Safety">–</span></div>
+      </div>
+      <div class="sb-section">
+        <div class="sb-head">Year</div>
+        <div class="sb-item act" data-f="year" data-v="all" onclick="sf('year','all',this)">All years</div>
+        <div class="sb-item" data-f="year" data-v="2026" onclick="sf('year','2026',this)">2026 <span class="sb-ct" id="ct-2026">–</span></div>
+        <div class="sb-item" data-f="year" data-v="2025" onclick="sf('year','2025',this)">2025 <span class="sb-ct" id="ct-2025">–</span></div>
+        <div class="sb-item" data-f="year" data-v="2024" onclick="sf('year','2024',this)">2024 <span class="sb-ct" id="ct-2024">–</span></div>
+      </div>
+      <div class="sb-section" id="state-section" style="display:none">
+        <div class="sb-head">State</div>
+        <div class="sb-item act" data-f="state" data-v="all" onclick="sf('state','all',this)">All states</div>
+        <div class="sb-item" data-f="state" data-v="CA" onclick="sf('state','CA',this)">California</div>
+        <div class="sb-item" data-f="state" data-v="TX" onclick="sf('state','TX',this)">Texas</div>
+        <div class="sb-item" data-f="state" data-v="FL" onclick="sf('state','FL',this)">Florida</div>
+        <div class="sb-item" data-f="state" data-v="NY" onclick="sf('state','NY',this)">New York</div>
+        <div class="sb-item" data-f="state" data-v="ME" onclick="sf('state','ME',this)">Maine</div>
+        <div class="sb-item" data-f="state" data-v="IL" onclick="sf('state','IL',this)">Illinois</div>
+      </div>
+    </aside>
+
+    <div class="card-area">
+      <div class="rbar"><span class="rct" id="rbar"></span></div>
+      <div id="out"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DETAIL VIEW ═══════════════════════════════════════════ -->
+<div class="view" id="view-wftc">
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sb-section">
+        <div class="sb-label">Tax Year</div>
+        <div class="sb-item act" id="wftc-yr-all" onclick="wftcFilter('year','')">All years</div>
+        <div class="sb-item" id="wftc-yr-2026" onclick="wftcFilter('year','2026')">Tax Year 2026</div>
+        <div class="sb-item" id="wftc-yr-2025" onclick="wftcFilter('year','2025')">Tax Year 2025</div>
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">State</div>
+        <div class="wftc-state-box">
+          <div class="wftc-state-header" onclick="toggleWFTCStateDropdown()">
+            <span id="wftc-state-label">All States</span>
+            <span class="wftc-state-arrow" id="wftc-state-arrow">▾</span>
+          </div>
+          <div class="wftc-state-dropdown" id="wftc-state-dropdown" style="display:none">
+            <div class="wftc-state-clear" onclick="wftcClearStates()">Clear all</div>
+          <label class="wftc-state-opt"><input type="checkbox" value="AK" onchange="wftcStateToggle(this)"> AK</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="AL" onchange="wftcStateToggle(this)"> AL</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="AR" onchange="wftcStateToggle(this)"> AR</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="AZ" onchange="wftcStateToggle(this)"> AZ</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="CA" onchange="wftcStateToggle(this)"> CA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="CO" onchange="wftcStateToggle(this)"> CO</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="CT" onchange="wftcStateToggle(this)"> CT</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="DC" onchange="wftcStateToggle(this)"> DC</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="DE" onchange="wftcStateToggle(this)"> DE</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="FL" onchange="wftcStateToggle(this)"> FL</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="GA" onchange="wftcStateToggle(this)"> GA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="HI" onchange="wftcStateToggle(this)"> HI</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="IA" onchange="wftcStateToggle(this)"> IA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="ID" onchange="wftcStateToggle(this)"> ID</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="IL" onchange="wftcStateToggle(this)"> IL</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="IN" onchange="wftcStateToggle(this)"> IN</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="KS" onchange="wftcStateToggle(this)"> KS</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="KY" onchange="wftcStateToggle(this)"> KY</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="LA" onchange="wftcStateToggle(this)"> LA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MA" onchange="wftcStateToggle(this)"> MA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MD" onchange="wftcStateToggle(this)"> MD</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="ME" onchange="wftcStateToggle(this)"> ME</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MI" onchange="wftcStateToggle(this)"> MI</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MN" onchange="wftcStateToggle(this)"> MN</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MO" onchange="wftcStateToggle(this)"> MO</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MS" onchange="wftcStateToggle(this)"> MS</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="MT" onchange="wftcStateToggle(this)"> MT</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NC" onchange="wftcStateToggle(this)"> NC</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="ND" onchange="wftcStateToggle(this)"> ND</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NE" onchange="wftcStateToggle(this)"> NE</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NH" onchange="wftcStateToggle(this)"> NH</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NJ" onchange="wftcStateToggle(this)"> NJ</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NM" onchange="wftcStateToggle(this)"> NM</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NV" onchange="wftcStateToggle(this)"> NV</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="NY" onchange="wftcStateToggle(this)"> NY</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="OH" onchange="wftcStateToggle(this)"> OH</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="OK" onchange="wftcStateToggle(this)"> OK</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="OR" onchange="wftcStateToggle(this)"> OR</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="PA" onchange="wftcStateToggle(this)"> PA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="RI" onchange="wftcStateToggle(this)"> RI</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="SC" onchange="wftcStateToggle(this)"> SC</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="SD" onchange="wftcStateToggle(this)"> SD</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="TN" onchange="wftcStateToggle(this)"> TN</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="TX" onchange="wftcStateToggle(this)"> TX</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="UT" onchange="wftcStateToggle(this)"> UT</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="VA" onchange="wftcStateToggle(this)"> VA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="VT" onchange="wftcStateToggle(this)"> VT</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="WA" onchange="wftcStateToggle(this)"> WA</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="WI" onchange="wftcStateToggle(this)"> WI</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="WV" onchange="wftcStateToggle(this)"> WV</label>
+          <label class="wftc-state-opt"><input type="checkbox" value="WY" onchange="wftcStateToggle(this)"> WY</label>
+          </div>
+        </div>
+      </div>
+      <button class="back-btn" onclick="goHome()" style="margin-top:1rem;width:100%">← All Research</button>
+    </aside>
+    <main class="main-col">
+      <div id="wftc-search-bar" style="margin-bottom:1rem">
+        <input type="text" id="wftc-search-input" placeholder="Search by state or district..."
+          oninput="wftcFilter('search',this.value)"
+          style="width:100%;padding:9px 14px;border:1px solid var(--rule);border-radius:var(--r);font-size:13px;outline:none;box-sizing:border-box"/>
+      </div>
+      <div id="wftc-view-content"></div>
+    </main>
+  </div>
+</div>
+<div class="view" id="view-detail">
+  <div class="detail-wrap">
+    <div id="det-main"></div>
+    <aside id="det-side"></aside>
+  </div>
+</div>
+
+<!-- ══ FOOTER ═══════════════════════════════════════════════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">OFRA</div>
+        <div class="foot-tagline">The Office for Fiscal and Regulatory Analysis produces independent fiscal estimates, policy investigations, and data products for researchers, policymakers, and the public.</div>
+        <div class="foot-afpi">Powered by <a href="https://americafirstpolicy.com" target="_blank" rel="noopener">America First Policy Institute</a><br>1455 Pennsylvania Avenue NW, Suite 225, Washington, DC 20004</div>
+      </div>
+      <div>
+        <div class="foot-col-head">Research</div>
+        <span class="foot-link" onclick="goHome()">All Publications</span>
+        <span class="foot-link" onclick="filterBy('type','Investigation')">Investigations</span>
+        <span class="foot-link" onclick="filterBy('type','Analysis')">Analyses</span>
+        <span class="foot-link" onclick="filterBy('type','Estimate')">Estimates</span>
+        <span class="foot-link" onclick="filterBy('type','Brief')">Briefs</span>
+        <span class="foot-link" onclick="filterBy('type','WFTC')">WFTC Data</span>
+      </div>
+      <div>
+        <div class="foot-col-head">Topics</div>
+        <span class="foot-link" onclick="filterBy('topic','Fiscal Policy')">Fiscal Policy</span>
+        <span class="foot-link" onclick="filterBy('topic','Regulatory Reform')">Regulatory Reform</span>
+        <span class="foot-link" onclick="filterBy('topic','Tax Policy')">Tax Policy</span>
+        <span class="foot-link" onclick="filterBy('topic','Immigration')">Immigration</span>
+        <span class="foot-link" onclick="filterBy('topic','Housing')">Housing</span>
+        <span class="foot-link" onclick="filterBy('topic','Public Safety')">Public Safety</span>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="foot-copy">© 2026 America First Policy Institute. All rights reserved.</span>
+      <span class="foot-cite-note">To cite OFRA research, use: Office for Fiscal and Regulatory Analysis, [Title], [Date], americafirstpolicy.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════════ */
+const SN={AK:'Alaska',AL:'Alabama',AR:'Arkansas',AZ:'Arizona',CA:'California',CO:'Colorado',CT:'Connecticut',DC:'D.C.',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',IA:'Iowa',ID:'Idaho',IL:'Illinois',IN:'Indiana',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',MA:'Massachusetts',MD:'Maryland',ME:'Maine',MI:'Michigan',MN:'Minnesota',MO:'Missouri',MS:'Mississippi',MT:'Montana',NC:'North Carolina',ND:'North Dakota',NE:'Nebraska',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NV:'Nevada',NY:'New York',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VA:'Virginia',VT:'Vermont',WA:'Washington',WI:'Wisconsin',WV:'West Virginia',WY:'Wyoming'};
+const SR={AK:'West',AL:'South',AR:'South',AZ:'West',CA:'West',CO:'West',CT:'Northeast',DC:'South',DE:'Northeast',FL:'South',GA:'South',HI:'West',IA:'Midwest',ID:'West',IL:'Midwest',IN:'Midwest',KS:'Midwest',KY:'South',LA:'South',MA:'Northeast',MD:'South',ME:'Northeast',MI:'Midwest',MN:'Midwest',MO:'Midwest',MS:'South',MT:'West',NC:'South',ND:'Midwest',NE:'Midwest',NH:'Northeast',NJ:'Northeast',NM:'West',NV:'West',NY:'Northeast',OH:'Midwest',OK:'South',OR:'West',PA:'Northeast',RI:'Northeast',SC:'South',SD:'Midwest',TN:'South',TX:'South',UT:'West',VA:'South',VT:'Northeast',WA:'West',WI:'Midwest',WV:'South',WY:'West'};
+const DS={AK:1,AL:7,AR:4,AZ:9,CA:52,CO:8,CT:5,DE:1,FL:28,GA:14,HI:2,IA:4,ID:2,IL:17,IN:9,KS:4,KY:6,LA:6,MA:9,MD:8,ME:2,MI:13,MN:8,MO:8,MS:4,MT:2,NC:14,ND:1,NE:3,NH:2,NJ:12,NM:3,NV:4,NY:26,OH:15,OK:5,OR:6,PA:17,RI:2,SC:7,SD:1,TN:9,TX:38,UT:4,VA:11,VT:1,WA:10,WI:8,WV:2,WY:1};
+function ord(n){const s=['th','st','nd','rd'],v=n%100;return s[(v-20)%10]||s[v]||s[0]}
+
+// Curated publications — sorted newest first
+const CURATED=[
+  {id:'la-wfa-investigation',title:'The Hidden Tax: Waste, Fraud, and Abuse in Los Angeles City Government',desc:'Four patterns of governance failure — corruption, unaccountable homelessness spending, infrastructure overruns, utility mismanagement — costing residents ~$425M annually.',abstract:'Los Angeles taxpayers fund one of the most expensive city governments in the United States. This investigation documents four interconnected patterns of governance failure: a culture of pervasive public corruption with four senior officials federally convicted since 2022; a homelessness crisis where $1.2 billion in voter-approved funds delivered fewer than one in eight promised units; infrastructure projects costing multiples of what peer cities pay; and a public utility that has systematically overcharged the residents it exists to serve.',type:'Investigation',topics:['Public Safety','Housing','Fiscal Policy'],year:'2026',date:'April 24, 2026',sortDate:'2026-04-24',state:'CA',region:'West',slug:'la-wfa-investigation',num:null,pages:12,pdfUrl:'https://dvasquez0642.github.io/Los-Angeles-WFA-investigation.pdf'},
+  {id:'securing-maines-border',title:"Securing Maine's Border",desc:"FY2025 enforcement outcomes: 71% drop in encounters, 24-year apprehension record in the Houlton Sector, 20% decline in fatal drug overdoses.",abstract:"The Houlton Sector of U.S. Border Patrol set an all-time apprehension record in FY2025, apprehending 725 individuals from 46 countries while overall illegal activity declined sharply. Total encounters in Maine fell 71%, from 23,495 in FY2024 to 6,719 in FY2025. ICE detained 549 individuals in Maine since January 2025, and fatal drug overdoses dropped 20% — the lowest total since 2019.",type:'Brief',topics:['Immigration','Public Safety'],year:'2026',date:'May 1, 2026',sortDate:'2026-05-01',state:'ME',region:'Northeast',slug:'securing-maines-border',num:'E2026-05-01',pages:3,pdfUrl:'https://dvasquez0642.github.io/SECURING_MAINES_BORDER.pdf'},
+  {id:'e2025-009',title:'OFRA Estimate E2025–009: Budgetary and Economic Effects of Federal Regulatory Growth since 1980',desc:'Projects $135.7–$166.9T in lost GDP over 2026–2035 from cumulative federal regulations, with $25.8–$31.7T in lost federal revenue.',abstract:'This estimate projects the budgetary and economic effects of federal regulatory growth since 1980 over the 2026–2035 budget window. Under a constant 0.8% drag scenario, regulations reduce GDP by $166.9 trillion and federal revenue by $31.7 trillion.',type:'Estimate',topics:['Regulatory Reform','Fiscal Policy'],year:'2025',date:'November 4, 2025',sortDate:'2025-11-04',state:null,region:null,slug:'ofra-estimate-e2025-009',num:'E2025–009',pages:2,pdfUrl:'https://dvasquez0642.github.io/OFRA_Estimate_E2025-009_Regulation_Budget_Effects_-_FINAL.pdf'},
+  {id:'tcja-local-impact',title:'Local Impact of Extending Individual Provisions of the Tax Cuts and Jobs Act of 2017',desc:'State- and district-level estimates of the fiscal impact on American families of extending the individual provisions of the Tax Cuts and Jobs Act.',abstract:'This publication provides local-level estimates of the impact of extending the individual provisions of the Tax Cuts and Jobs Act of 2017. The analysis covers all 50 states and congressional districts, quantifying the tax burden change facing American families if TCJA individual provisions expire versus are extended.',type:'Analysis',topics:['Tax Policy','Fiscal Policy'],year:'2025',date:'April 9, 2025',sortDate:'2025-04-09',state:null,region:null,slug:'local-impact-of-extending-individual-provisions-of-the-tax-cuts-and-jobs-act-of-2017',num:'S2025–001',pages:null,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2025-001_Table_-_Local_Impact_of_TCJA_Extension.pdf'},
+  {id:'s2025-001',title:'OFRA Simulation S2025–001: Federal Civilian Workforce',desc:'Simulation modeling the fiscal and budgetary effects of changes to the size and composition of the federal civilian workforce.',abstract:'This simulation models the budgetary effects of changes to the federal civilian workforce, presenting table and figure outputs showing projected fiscal impacts under various workforce reduction and restructuring scenarios.',type:'Simulation',topics:['Fiscal Policy','Regulatory Reform'],year:'2025',date:'February 3, 2025',sortDate:'2025-02-03',state:null,region:null,slug:'ofra-simulation-s2025001',num:'S2025–001',pages:2,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2025-001_Table_Federal_Civilian_Workforce_FINAL.pdf'},
+  {id:'s2024-001',title:'OFRA Simulation S2024–001: Substitute SALT Cap with Standard Deduction',desc:'Revenue-neutral simulation of lowering the SALT cap in exchange for raising the standard deduction, modeled over the 2026–2035 budget window using JCT-style conventional models.',abstract:'This simulation models the revenue-neutral trade-off of substituting the SALT cap with an increase in the standard deduction. The simulation covers SALT cap values from $0 to $10,000 and the corresponding revenue-neutral change in the standard deduction for single filers, over the 2026–2035 budget window.',type:'Simulation',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'October 16, 2024',sortDate:'2024-10-16',state:null,region:null,slug:'ofra-simulation-s2024001',num:'S2024–001',pages:4,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-001-Table-FINAL-FINAL.pdf',pdfFigure:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-001-Figure-FINAL-FINAL.pdf'},
+  {id:'s2024-002',title:'OFRA Simulation S2024–002: Substitute SALT Cap with Standard Deduction (Extended Range)',desc:'Extended revenue-neutral simulation of SALT cap substitution with standard deduction increases, covering SALT cap values from $0 to $10,000.',abstract:'This simulation extends the S2024–001 analysis, modeling revenue-neutral changes in the standard deduction as the SALT cap varies from $0 to $10,000. Calibrated to JCT-style conventional models with behavioral responses including substitution elasticity of taxable income and semi-elasticity of long-term capital gains.',type:'Simulation',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'October 16, 2024',sortDate:'2024-10-16',state:null,region:null,slug:'ofra-simulation-s2024002',num:'S2024–002',pages:4,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-002-Table-FINAL-FINAL.pdf',pdfFigure:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-002-Figure-FINAL-FINAL.pdf'},
+  {id:'s2024-003',title:'OFRA Simulation S2024–003: Substitute SALT Cap with Lower Income Tax',desc:'Revenue-neutral simulation of lowering the SALT cap in exchange for a reduced tax rate on the lowest income bracket, over the 2026–2035 budget window.',abstract:'This simulation models the revenue-neutral trade-off of lowering the SALT cap in exchange for reducing the tax rate on the lowest income bracket. SALT cap values range from $0 to $10,000, with corresponding changes in the first-bracket income tax rate shown in percentage points.',type:'Simulation',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'October 16, 2024',sortDate:'2024-10-16',state:null,region:null,slug:'ofra-simulation-s2024003',num:'S2024–003',pages:4,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-003-Table-FINAL-FINAL.pdf',pdfFigure:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-003-Figure-FINAL-FINAL.pdf'},
+  {id:'s2024-004',title:'OFRA Simulation S2024–004: Substitute SALT Cap (No Marriage Penalty) with Standard Deduction',desc:'Revenue-neutral simulation eliminating the SALT marriage penalty while substituting with standard deduction increases, over the 2026–2035 budget window.',abstract:'This simulation models a SALT reform that eliminates the marriage penalty by setting the joint filer cap at twice the single filer cap, in exchange for raising the standard deduction.',type:'Simulation',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'October 16, 2024',sortDate:'2024-10-16',state:null,region:null,slug:'ofra-simulation-s2024004',num:'S2024–004',pages:4,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-004-Table-FINAL-FINAL.pdf',pdfFigure:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-004-Figure-FINAL-FINAL.pdf'},
+  {id:'s2024-005',title:'OFRA Simulation S2024–005: SALT Reform — Figure',desc:'Figure output from the S2024 SALT simulation series illustrating revenue-neutral trade-off curves across SALT cap scenarios.',abstract:'This publication presents the figure output from the S2024 SALT simulation series, illustrating revenue-neutral trade-off curves showing how changes to the SALT cap correspond to offsetting changes in the standard deduction or income tax rate.',type:'Simulation',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'October 16, 2024',sortDate:'2024-10-16',state:null,region:null,slug:'ofra-simulation-s2024005',num:'S2024–005',pages:1,pdfUrl:'https://dvasquez0642.github.io/OFRA_Simulation_S2024-005-Figure-FINAL-FINAL.pdf'},
+  {id:'tcja-itemization',title:'The Tax Cuts and Jobs Act Reduced Tax Itemization Complexity and Improved Data Security Across All 50 States',desc:'Analysis of how the TCJA standard deduction expansion reduced itemization rates, tax filing complexity, and IRS data exposure across all 50 states.',abstract:'This publication documents how the Tax Cuts and Jobs Act reduced itemization rates by expanding the standard deduction, lowering tax filing complexity for millions of American households and reducing the volume of sensitive financial data collected by the IRS. Results are presented for all 50 states.',type:'Analysis',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'July 1, 2024',sortDate:'2024-07-01',state:null,region:null,slug:'the-tax-cuts-and-jobs-act-reduced-tax-itemization-complexity-and-improved-data-security-across-all-50-states',num:null,pages:null,pdfUrl:'https://dvasquez0642.github.io/LIT1_2024-07-01_The_Tax_Cuts_and_Jobs_Act_Reduced_Tax_Itemization_Across_All_50_States_FINAL.pdf'},
+  {id:'irs-data-liabilities',title:'IRS Data Liabilities, Budget Costs, and the Inflation Reduction Act of 2022',desc:'Analysis of IRS data security liabilities and the fiscal costs of IRS budget expansion under the Inflation Reduction Act, with implications for taxpayer privacy.',abstract:'This publication examines IRS data liabilities and budget costs, with particular focus on the Inflation Reduction Act of 2022 and its expansion of IRS funding. The analysis covers taxpayer data security risks, projected budget impacts, and policy implications.',type:'Analysis',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'July 1, 2024',sortDate:'2024-07-01',state:null,region:null,slug:'irs-data-liabilities-budget-costs-and-the-inflation-reduction-act-of-2022',num:null,pages:null,pdfUrl:'https://dvasquez0642.github.io/FRA1_2024-07-01_IRS_Data_Liabilities_Budget_Costs_and_the_Inflation_Reduction_Act_of_2022_FINAL.pdf'},
+  {id:'dynamic-scoring',title:'Policy Scores Should Adopt Dynamic+ Scoring Method',desc:'Analysis arguing that conventional static scoring underestimates the fiscal impact of pro-growth tax policy and that dynamic scoring should be adopted as the standard method.',abstract:'This publication makes the case for adopting dynamic scoring as the standard method for policy cost estimates, arguing that conventional static scoring underestimates the revenue and growth effects of pro-growth tax reforms.',type:'Analysis',topics:['Tax Policy','Fiscal Policy','Regulatory Reform'],year:'2024',date:'July 1, 2024',sortDate:'2024-07-01',state:null,region:null,slug:'policy-scores-should-adopt-dynamic-scoring-method',num:null,pages:null,pdfUrl:'https://dvasquez0642.github.io/OM1_2024-07-01_Policy_Scores_Should_Adopt_Dynamic__Scoring_Method_FINAL.pdf'},
+  {id:'tcja-expiration',title:'TCJA Expiration Would Increase Tax Burden on American Families',desc:'Estimates of the tax burden increase facing American families if the individual provisions of the Tax Cuts and Jobs Act expire at the end of 2025.',abstract:'This publication estimates the tax burden increase that would result from the expiration of the individual provisions of the Tax Cuts and Jobs Act at the end of 2025, quantifying the impact on families across income levels and geographies.',type:'Analysis',topics:['Tax Policy','Fiscal Policy'],year:'2024',date:'July 1, 2024',sortDate:'2024-07-01',state:null,region:null,slug:'tcja-expiration-would-increase-tax-burden-on-american-families',num:null,pages:null,pdfUrl:'https://dvasquez0642.github.io/PIA1_2024-07-01_TCJA_Expiration_Would_Increase_Tax_Burden_on_American_Families_FINAL.pdf'},
+];
+
+// Sort curated by date descending so featured is always most recent
+CURATED.sort((a,b)=>b.sortDate.localeCompare(a.sortDate));
+
+function buildWFTC(){
+  const out=[];
+  for(const yr of ['2025','2026']){ // yr = tax year; all published in 2026
+    for(const[st,nd] of Object.entries(DS)){
+      for(let d=1;d<=nd;d++){
+        const pad=String(d).padStart(2,'0');
+        out.push({id:`wftc-${yr}-cd-${st.toLowerCase()}-${pad}`,title:`Working Family Tax Credit — ${SN[st]} — ${d}${ord(d)} Congressional District (Tax Year ${yr})`,desc:`Estimated WFTC impact for ${SN[st]}'s ${d}${ord(d)} Congressional District, tax year ${yr}.`,abstract:`Estimated fiscal and distributional impact of the Working Family Tax Credit for ${SN[st]}'s ${d}${ord(d)} Congressional District, tax year ${yr}.`,type:'WFTC',topics:['Tax Policy'],year:'2026',date:'2026',sortDate:'2026-01-01',state:st,region:SR[st],slug:`wftc-${yr}-cd-${st.toLowerCase()}-${pad}`,num:null,pages:1});
+      }
+    }
+    for(const st of ['CA','TX','FL','NY','IL','PA','OH','GA','NC','MI','NJ','VA','WA','AZ','IN','MA','TN','CO','MD','MN','MO']){
+      out.push({id:`wftc-${yr}-state-${st.toLowerCase()}`,title:`Working Family Tax Credit — ${SN[st]} — Statewide (Tax Year ${yr})`,desc:`Estimated statewide WFTC impact for ${SN[st]}, tax year ${yr}.`,abstract:`Estimated statewide fiscal and distributional impact of the Working Family Tax Credit for ${SN[st]}, tax year ${yr}.`,type:'WFTC',topics:['Tax Policy'],year:'2026',date:'2026',sortDate:'2026-01-01',state:st,region:SR[st],slug:`wftc-${yr}-state-${st.toLowerCase()}`,num:null,pages:1});
+    }
+  }
+  return out;
+}
+
+const WFTC=buildWFTC();
+const ALL=[...CURATED,...WFTC];
+const BID=Object.fromEntries(ALL.map(p=>[p.id,p]));
+
+/* ══════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════ */
+const F={type:'all',topic:'all',year:'all',state:'all'};
+const MAX=12;
+const FL={type:'Type',topic:'Topic',year:'Year',state:'State'};
+let _featId=CURATED[0].id; // always most recent
+
+/* ══════════════════════════════════════════════════════════
+   HASH ROUTING
+══════════════════════════════════════════════════════════ */
+function parseHash(){
+  const h=location.hash.replace(/^#/,'')||'/';
+  if(h==='/wftc'){return{view:'wftc'};}
+  if(h.startsWith('/publication/')){
+    return{view:'detail',id:h.replace('/publication/','').split('?')[0]};
+  }
+  const qi=h.indexOf('?');
+  const params=qi>=0?new URLSearchParams(h.slice(qi+1)):new URLSearchParams();
+  return{view:'home',params};
+}
+
+function buildHash(view,pubId=null){
+  if(view==='detail') return`#/publication/${pubId}`;
+  const p=new URLSearchParams();
+  if(F.type!=='all') p.set('type',F.type);
+  if(F.topic!=='all') p.set('topic',F.topic);
+  if(F.year!=='all') p.set('year',F.year);
+  if(F.state!=='all') p.set('state',F.state);
+  const qs=p.toString();
+  return qs?`#/?${qs}`:'#/';
+}
+
+function applyHashToFilters(params){
+  F.type=params.get('type')||'all';
+  F.topic=params.get('topic')||'all';
+  F.year=params.get('year')||'all';
+  F.state=params.get('state')||'all';
+  syncSidebarUI();
+}
+
+function syncSidebarUI(){
+  ['type','topic','year','state'].forEach(f=>{
+    document.querySelectorAll(`[data-f="${f}"]`).forEach(el=>{
+      el.classList.toggle('act',el.dataset.v===F[f]);
+    });
+  });
+  buildMobileFilters();
+}
+
+window.addEventListener('popstate',()=>{
+  const{view,id,params}=parseHash();
+  if(view==='wftc'){showView('wftc',false);renderWFTCView();return;}
+  if(view==='detail'&&id){
+    const p=BID[id];
+    if(p){renderDetail(p,false);showView('detail',false);}
+    else{goHome(false);}
+  } else {
+    if(params) applyHashToFilters(params);
+    showView('home',false);render();
+  }
+});
+
+/* ══════════════════════════════════════════════════════════
+   VIEW MANAGEMENT
+══════════════════════════════════════════════════════════ */
+function showView(v,push=true){
+  document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  if(v==='home') window.scrollTo({top:0,behavior:'smooth'});
+  else window.scrollTo({top:0,behavior:'instant'});
+}
+
+function goHome(push=true){
+  F.type='all';F.topic='all';F.year='all';F.state='all';
+  syncSidebarUI();
+  document.getElementById('q').value='';
+  if(push) history.pushState(null,'','#/');
+  document.title='OFRA — Research & Analysis';
+  showView('home',false);
+  render();
+}
+
+function openFeatured(){
+  openPub(_featId);
+}
+
+function openPub(id,push=true){
+  if(id==='wftc-index'){showWFTCPage();return;}
+  const p=BID[id];if(!p)return;
+  renderDetail(p);
+  showView('detail',false);
+  if(push) history.pushState(null,'',buildHash('detail',id));
+  document.title=`${p.title} — OFRA`;
+}
+
+/* ══════════════════════════════════════════════════════════
+   FILTERS
+══════════════════════════════════════════════════════════ */
+function sf(filt,val,el){
+  F[filt]=val;
+  document.querySelectorAll(`[data-f="${filt}"]`).forEach(e=>e.classList.remove('act'));
+  if(el) el.classList.add('act');
+  document.getElementById('state-section').style.display=(F.type==='WFTC'||F.topic==='Immigration')?'block':'none';
+  history.replaceState(null,'',buildHash('home'));
+  buildMobileFilters();
+  render();
+}
+
+function filterBy(filt,val){
+  F[filt]=val;
+  syncSidebarUI();
+  history.pushState(null,'',buildHash('home'));
+  document.title='OFRA — Research & Analysis';
+  showView('home',false);
+  render();
+}
+
+function clearAll(){
+  F.type='all';F.topic='all';F.year='all';F.state='all';
+  syncSidebarUI();
+  document.getElementById('q').value='';
+  history.replaceState(null,'',buildHash('home'));
+  render();
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE FILTERS
+══════════════════════════════════════════════════════════ */
+function buildMobileFilters(){
+  const bar=document.getElementById('mob-filters');
+  const types=['all','Investigation','Analysis','Estimate','Brief','Simulation','WFTC'];
+  const labels={all:'All Research',Investigation:'Investigations',Analysis:'Analyses',Estimate:'Estimates',Brief:'Briefs',Simulation:'Simulations',WFTC:'WFTC Data'};
+  bar.innerHTML=types.map(t=>`
+    <span class="mfb-pill${F.type===t?' act':''}" onclick="sf('type','${t}',null);syncSidebarUI()">${labels[t]}</span>
+  `).join('');
+}
+
+/* ══════════════════════════════════════════════════════════
+   FEATURED HERO
+══════════════════════════════════════════════════════════ */
+function renderFeatured(){
+  const p=BID[_featId];if(!p)return;
+  const badge=document.getElementById('hf-badge');
+  const title=document.getElementById('hf-title');
+  const meta=document.getElementById('hf-meta');
+  badge.innerHTML=`<span class="hf-badge cb cb-${p.type}" style="cursor:default">${p.type==='WFTC'?'WFTC Data':p.type}</span>`;
+  title.textContent=p.title;
+  meta.textContent=p.date+(p.state?' · '+SN[p.state]:'')+(p.pages?' · '+p.pages+' pages':'');
+}
+
+/* ══════════════════════════════════════════════════════════
+   RENDER CATALOG
+══════════════════════════════════════════════════════════ */
+function getFiltered(){
+  const q=document.getElementById('q')?.value.toLowerCase().trim()||'';
+  return ALL.filter(p=>{
+    if(F.type!=='all'&&p.type!==F.type) return false;
+    if(F.topic!=='all'&&!p.topics.includes(F.topic)) return false;
+    if(F.year!=='all'&&p.year!==F.year) return false;
+    if(F.state!=='all'&&p.state!==F.state) return false;
+    if(q&&!p.title.toLowerCase().includes(q)&&!p.desc.toLowerCase().includes(q)&&!(p.num&&p.num.toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+
+function render(){
+  const filtered=getFiltered();
+  const total=filtered.length;
+
+  // Split WFTC from curated when showing "all"
+  const showingWFTC=F.type==='WFTC'||(F.type==='all'&&filtered.some(p=>p.type==='WFTC'));
+  const curatedFiltered=filtered.filter(p=>p.type!=='WFTC');
+  const wftcFiltered=filtered.filter(p=>p.type==='WFTC');
+
+  // Result count (show curated count prominently, WFTC as secondary)
+  const curatedCount=curatedFiltered.length;
+  const wftcCount=wftcFiltered.length;
+  let countLabel='';
+  if(F.type==='WFTC'){
+    countLabel=`${wftcCount.toLocaleString()} WFTC data publication${wftcCount!==1?'s':''}`;
+  } else if(F.type==='all'){
+    countLabel=`${curatedCount.toLocaleString()} publication${curatedCount!==1?'s':''}${wftcCount>0?' + '+wftcCount.toLocaleString()+' WFTC data entries':''}`;
+  } else {
+    countLabel=`${total.toLocaleString()} result${total!==1?'s':''} found`;
+  }
+  document.getElementById('rbar').textContent=countLabel;
+
+  updateSidebarCounts(filtered);
+  updateFilterBar();
+
+  const out=document.getElementById('out');
+  if(total===0){
+    out.innerHTML='<div class="no-res">No publications match your filters.<br><button class="more-btn" style="margin-top:12px" onclick="clearAll()">Clear all filters</button></div>';
+    return;
+  }
+
+  let html='';
+
+  // Curated publications (non-WFTC)
+  if(F.type!=='WFTC'&&curatedFiltered.length>0){
+    const byYear={};
+    curatedFiltered.forEach(p=>{(byYear[p.year]=byYear[p.year]||[]).push(p);});
+    const yrs=Object.keys(byYear).sort((a,b)=>b-a);
+    html+=yrs.map(yr=>{
+      const items=byYear[yr];
+      const wftcCard=(yr==='2026'&&wftcFiltered.length>0&&F.type==='all')?pubCard({
+        id:'wftc-index',
+        title:'Working Families Tax Cut Data',
+        desc:`${wftcFiltered.length.toLocaleString()} publications — state and congressional district estimates for tax years 2025 and 2026.`,
+        type:'WFTC',
+        date:'2026',
+        year:'2026',
+        topics:['Tax Policy'],
+        slug:'wftc-index',
+        num:null,
+        pages:null,
+        _wftcLink:true
+      }):'';
+      return `<div class="yr-block">
+        <div class="yr-div"><span class="yr-num">${yr}</span><div class="yr-line"></div><span class="yr-ct">${items.length.toLocaleString()} publication${items.length!==1?'s':''}</span></div>
+        <div class="card-grid">${items.map(pubCard).join('')}</div>
+        ${wftcCard}
+      </div>`;
+    }).join('');
+  }
+
+  // WFTC section — separate and collapsible
+  if(wftcFiltered.length>0){
+    const shown=wftcFiltered.slice(0,MAX);
+    const extra=wftcFiltered.length-shown.length;
+    if(F.type==='WFTC'){
+      // Show as expanded grid
+      const byYear={};
+      wftcFiltered.forEach(p=>{(byYear[p.year]=byYear[p.year]||[]).push(p);});
+      const yrs=Object.keys(byYear).sort((a,b)=>b-a);
+      html+=yrs.map(yr=>{
+        const items=byYear[yr],shown2=items.slice(0,MAX),extra2=items.length-MAX;
+        return`<div class="yr-block">
+          <div class="yr-div"><span class="yr-num">${yr}</span><div class="yr-line"></div><span class="yr-ct">${items.length.toLocaleString()} WFTC entries</span></div>
+          <div id="wftc-list-${yr}" class="wftc-list open">${shown2.map(wftcRow).join('')}</div>
+          ${extra2>0?`<div class="more-row"><button class="more-btn" onclick="expandWFTC('${yr}',this)">+ ${extra2.toLocaleString()} more</button></div>`:''}
+        </div>`;
+      }).join('');
+    }
+  }
+
+  out.innerHTML=html;
+}
+
+function showWFTCPage(){
+  history.pushState(null,'','#/wftc');
+  showView('wftc');
+  renderWFTCView();
+}
+
+function renderWFTCView(){
+  const wftcAll=buildWFTC();
+  const sf=window.wftcF||{state:'',year:'',search:''};
+  let filtered=wftcAll;
+  if(sf.states&&sf.states.length>0) filtered=filtered.filter(p=>sf.states.includes(p.state));
+  if(sf.year) filtered=filtered.filter(p=>p.title.includes('Tax Year '+sf.year));
+  if(sf.search){const q=sf.search.toLowerCase();filtered=filtered.filter(p=>p.title.toLowerCase().includes(q));}
+  const tx25=filtered.filter(p=>p.title.includes('Tax Year 2025'));
+  const tx26=filtered.filter(p=>p.title.includes('Tax Year 2026'));
+
+  // Update year sidebar active states
+  ['all','2026','2025'].forEach(v=>{
+    const el=document.getElementById('wftc-yr-'+(v==='all'?'all':v));
+    if(el) el.classList.toggle('act', (!sf.year&&v==='all')||(sf.year===v));
+  });
+
+  // Restore search input value
+  const si=document.getElementById('wftc-search-input');
+  if(si&&si.value!==sf.search) si.value=sf.search||'';
+
+  let html=`<div class="rbar" style="margin-bottom:1rem">${filtered.length.toLocaleString()} publication${filtered.length!==1?'s':''}</div>`;
+
+  if(!filtered.length){
+    html+='<div class="no-res">No publications match your filters.<br><button class="more-btn" style="margin-top:12px" onclick="wftcClearFilters()">Clear filters</button></div>';
+  } else {
+    for(const [yr,pubs] of [['2026',tx26],['2025',tx25]]){
+      if(!pubs.length) continue;
+      html+=`<div class="yr-block">
+        <div class="yr-div"><span class="yr-num">Tax Year ${yr}</span><div class="yr-line"></div><span class="yr-ct">${pubs.length.toLocaleString()} publication${pubs.length!==1?'s':''}</span></div>
+        ${pubs.map(wftcRow).join('')}
+      </div>`;
+    }
+  }
+  document.getElementById('wftc-view-content').innerHTML=html;
+}
+
+function wftcFilter(key,val){
+  window.wftcF=window.wftcF||{states:[],year:'',search:''};
+  if(key==='year'||key==='search') window.wftcF[key]=val;
+  renderWFTCView();
+}
+
+function wftcStateToggle(cb){
+  window.wftcF=window.wftcF||{states:[],year:'',search:''};
+  if(!window.wftcF.states) window.wftcF.states=[];
+  if(cb.checked){
+    if(!window.wftcF.states.includes(cb.value)) window.wftcF.states.push(cb.value);
+  } else {
+    window.wftcF.states=window.wftcF.states.filter(s=>s!==cb.value);
+  }
+  updateWFTCStateLabel();
+  renderWFTCView();
+}
+
+function wftcClearStates(){
+  window.wftcF=window.wftcF||{states:[],year:'',search:''};
+  window.wftcF.states=[];
+  document.querySelectorAll('.wftc-state-opt input').forEach(cb=>cb.checked=false);
+  updateWFTCStateLabel();
+  renderWFTCView();
+}
+
+function updateWFTCStateLabel(){
+  const states=window.wftcF&&window.wftcF.states||[];
+  const label=document.getElementById('wftc-state-label');
+  if(label) label.textContent=states.length===0?'All States':states.length===1?states[0]:states.length+' states selected';
+}
+
+function toggleWFTCStateDropdown(){
+  const dd=document.getElementById('wftc-state-dropdown');
+  const arrow=document.getElementById('wftc-state-arrow');
+  if(!dd) return;
+  const open=dd.style.display==='none';
+  dd.style.display=open?'block':'none';
+  if(arrow) arrow.classList.toggle('open',open);
+}
+
+function wftcClearFilters(){
+  window.wftcF={states:[],year:'',search:''};
+  document.querySelectorAll('.wftc-state-opt input').forEach(cb=>cb.checked=false);
+  updateWFTCStateLabel();
+  const si=document.getElementById('wftc-search-input');
+  if(si) si.value='';
+  renderWFTCView();
+}
+
+function toggleWFTC(bar){
+  const icon=bar.querySelector('.wftc-toggle-icon');
+  const list=document.getElementById('wftc-collapsed-list');
+  const isOpen=list.classList.contains('open');
+  list.classList.toggle('open',!isOpen);
+  icon.classList.toggle('open',!isOpen);
+}
+
+function expandWFTC(yr,btn){
+  const q=document.getElementById('q')?.value.toLowerCase().trim()||'';
+  const items=WFTC.filter(p=>{
+    if(p.year!==yr) return false;
+    if(F.state!=='all'&&p.state!==F.state) return false;
+    if(q&&!p.title.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.getElementById('wftc-list-'+yr).innerHTML=items.map(wftcRow).join('');
+  btn.closest('.more-row').remove();
+}
+
+function expandWFTCAll(){
+  const q=document.getElementById('q')?.value.toLowerCase().trim()||'';
+  const items=WFTC.filter(p=>{
+    if(F.state!=='all'&&p.state!==F.state) return false;
+    if(F.year!=='all'&&p.year!==F.year) return false;
+    if(q&&!p.title.toLowerCase().includes(q)) return false;
+    return true;
+  });
+  document.getElementById('wftc-collapsed-list').innerHTML=items.map(wftcRow).join('');
+  const mr=document.getElementById('wftc-more-row');
+  if(mr) mr.remove();
+}
+
+function updateSidebarCounts(filtered){
+  ['Estimate','Analysis','Investigation','Brief','Simulation','WFTC'].forEach(t=>{
+    const el=document.getElementById('ct-'+t);
+    if(el) el.textContent=filtered.filter(p=>p.type===t).length;
+  });
+  ['Fiscal Policy','Regulatory Reform','Tax Policy','Immigration','Housing','Public Safety'].forEach(t=>{
+    const el=document.getElementById('ct-'+t);
+    if(el) el.textContent=filtered.filter(p=>p.topics.includes(t)).length;
+  });
+  ['2024','2025','2026'].forEach(y=>{
+    const el=document.getElementById('ct-'+y);
+    if(el) el.textContent=filtered.filter(p=>p.year===y).length;
+  });
+}
+
+function updateFilterBar(){
+  const bar=document.getElementById('afbar');
+  const inner=document.getElementById('afb-in');
+  const active=Object.entries(F).filter(([,v])=>v!=='all');
+  const q=document.getElementById('q')?.value.trim()||'';
+  if(!active.length&&!q){bar.classList.remove('on');return;}
+  bar.classList.add('on');
+  inner.innerHTML=
+    `<span class="afb-lbl">Filtered:</span>`+
+    active.map(([k,v])=>`<span class="afb-chip" onclick="sf('${k}','all',document.querySelector('[data-f=${k}][data-v=all]'))">${FL[k]}: ${v} ×</span>`).join('')+
+    (q?`<span class="afb-chip" onclick="document.getElementById('q').value='';render()">Search: "${q}" ×</span>`:'')  +
+    `<button class="afb-clr" onclick="clearAll()">Clear all</button>`;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARD RENDERERS
+══════════════════════════════════════════════════════════ */
+function pubCard(p){
+  const isLarge=p.type==='Investigation'||p.type==='Analysis';
+  const lgClass=isLarge?' card-lg':'';
+  const rightHtml=isLarge?
+    `<div class="card-right">
+      <a class="cdl" href="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF
+      </a>
+    </div>`:
+    `<div class="cf">
+      <span class="cm">${p.date}</span>
+      <a class="cdl" href="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF
+      </a>
+    </div>`;
+
+  return`<div class="pub-card pc-${p.type}${lgClass}" onclick="openPub('${p.id}')">
+    <div${isLarge?' style="flex:1;min-width:0"':''}>
+      <span class="cb cb-${p.type}" onclick="event.stopPropagation();filterBy('type','${p.type}')">${p.type}</span>
+      <div class="ct">${p.title}</div>
+      <div class="byline">Office for Fiscal and Regulatory Analysis${p.state?' · '+SN[p.state]:''} · ${p.date}</div>
+      ${p.desc?`<p class="cd">${p.desc}</p>`:''}
+      ${!isLarge?rightHtml:''}
+    </div>
+    ${isLarge?rightHtml:''}
+  </div>`;
+}
+
+function wftcRow(p){
+  return`<div class="wftc-row" onclick="openPub('${p.id}')">
+    <span>${p.title}</span>
+    <div class="wftc-row-meta">
+      <span>${p.year}</span>
+      <a href="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:var(--red);font-weight:500;font-size:11px">PDF</a>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DETAIL PAGE
+══════════════════════════════════════════════════════════ */
+function renderDetail(p){
+  const pubUrl=window.location.origin+window.location.pathname+'#/publication/'+p.id;
+  const related=ALL.filter(r=>r.id!==p.id&&r.type!=='WFTC'&&(r.topics.some(t=>p.topics.includes(t))||r.state===p.state)).slice(0,4);
+  const citeYear=p.date.includes(',')?p.date.split(',')[1].trim():p.date;
+
+  document.getElementById('det-main').innerHTML=`
+    <div class="det-back" onclick="goHome()">← Back to all research</div>
+    <span class="cb cb-${p.type}" onclick="filterBy('type','${p.type}')">${p.type==='WFTC'?'WFTC Data':p.type}</span>
+    <h1 class="det-title">${p.title}</h1>
+    <div class="det-byline">Office for Fiscal and Regulatory Analysis · America First Policy Institute</div>
+    <div class="det-meta">
+      <span class="det-mi">${p.date}</span>
+      ${p.state?`<span class="det-ms">·</span><span class="det-mi" style="cursor:pointer" onclick="filterBy('state','${p.state}')">${SN[p.state]||p.state}</span>`:''}
+      ${p.num?`<span class="det-ms">·</span><span class="det-mi">${p.num}</span>`:''}
+      ${p.pages?`<span class="det-ms">·</span><span class="det-mi">${p.pages} page${p.pages!==1?'s':''}</span>`:''}
+    </div>
+    ${p.abstract?`<div class="det-abstract">${p.abstract}</div>`:''}
+    <div class="pdf-embed-wrap">
+      <div class="pdf-embed-label">
+        <span>Full Document</span>
+        <a href="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}" target="_blank" rel="noopener">Open in new tab ↗</a>
+      </div>
+      <iframe class="pdf-embed"
+        src="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}"
+        title="${p.title}"
+        loading="lazy">
+        <p style="padding:2rem;text-align:center;color:var(--muted)">PDF viewer not available. <a href="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}" target="_blank" style="color:var(--red)">Download the PDF</a>.</p>
+      </iframe>
+    </div>
+    <div class="det-tags">
+      ${p.topics.map(t=>`<span class="det-tag" onclick="filterBy('topic','${t}')">${t}</span>`).join('')}
+      ${p.state?`<span class="det-tag" onclick="filterBy('state','${p.state}')">${SN[p.state]||p.state}</span>`:''}
+      ${p.region?`<span class="det-tag">${p.region}</span>`:''}
+      ${p.num?`<span class="det-tag">${p.num}</span>`:''}
+    </div>`;
+
+  document.getElementById('det-side').innerHTML=`
+    <div class="det-cta">
+      <div class="det-cta-t">Download Publication</div>
+      <div class="det-cta-s">Full text, tables, and footnotes as PDF.</div>
+      <a class="det-dl" href="${p.pdfUrl||'https://published.ofra.works/static/publications/'+p.slug+'.pdf'}" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+    <button class="share-btn" onclick="copyUrl('${pubUrl}',this)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share
+    </button>
+    <div class="cite-box">
+      <div class="cite-head">How to Cite</div>
+      <div class="cite-text">Office for Fiscal and Regulatory Analysis. "${p.title}." ${p.date}. americafirstpolicy.com</div>
+    </div>
+    ${related.length>0?`<div class="rel-head">Related Research</div>${related.map(r=>`
+      <div class="rel-item" onclick="openPub('${r.id}')">
+        <span class="cb cb-${r.type}" style="font-size:9px;padding:2px 6px" onclick="event.stopPropagation();filterBy('type','${r.type}')">${r.type}</span>
+        <div class="rel-t">${r.title}</div>
+      </div>`).join('')}`:''}`;
+}
+
+function copyUrl(url,btn){
+  const doIt=()=>{
+    btn.classList.add('copied');
+    btn.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    setTimeout(()=>{
+      btn.classList.remove('copied');
+      btn.innerHTML=`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share`;
+    },2200);
+  };
+  navigator.clipboard.writeText(url).then(doIt).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=url;ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    doIt();
+  });
+}
+
+/* ══════════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════════ */
+function init(){
+  renderFeatured();
+  buildMobileFilters();
+  const{view,id,params}=parseHash();
+  if(view==='detail'&&id){
+    const p=BID[id];
+    if(p){renderDetail(p);showView('detail',false);document.title=`${p.title} — OFRA`;}
+    else{showView('home',false);render();}
+  } else {
+    if(params) applyHashToFilters(params);
+    showView('home',false);
+    render();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
